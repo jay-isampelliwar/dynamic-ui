@@ -25,15 +25,15 @@ A full-stack application that generates dynamic form components based on natural
 
 ### 2. Frontend Processing
 
-- **Component**: `UITestChatInput.tsx`
-- **Hook**: `useUITestChat.ts`
-- **API Service**: `uiTestApi.ts`
+- **Component**: `DynamicUIChatInput.tsx`
+- **Hook**: `useDynamicUIChat.ts`
+- **API Service**: Integrated within the hook
 
 ```typescript
 // User types message → sendMessage() called
 const sendMessage = useCallback(async (content: string) => {
   // Add user message to chat
-  const userMessage: UITestMessage = {
+  const userMessage: DynamicUIMessage = {
     id: Date.now().toString(),
     content: content.trim(),
     role: "user",
@@ -41,7 +41,7 @@ const sendMessage = useCallback(async (content: string) => {
   };
 
   // Call backend API
-  const response = await uiTestApiService.sendUITestMessage(content.trim());
+  const response = await sendDynamicUIMessage(content.trim());
 });
 ```
 
@@ -97,8 +97,8 @@ The AI agent is configured to return responses in this exact format:
 
 ### 5. Frontend Component Rendering
 
-- **Message List**: `UITestMessageList.tsx`
-- **Form Component**: `UITestFormComponent.tsx`
+- **Message List**: `DynamicUIMessageList.tsx`
+- **Form Component**: `DynamicUIFormComponent.tsx`
 - **Field Mapper**: `FieldMapper.tsx`
 
 ```typescript
@@ -108,7 +108,7 @@ The AI agent is configured to return responses in this exact format:
     <div key={message.id}>
       <div>{message.content}</div>
       {message.component && (
-        <UITestFormComponent component={message.component} />
+        <DynamicUIFormComponent component={message.component} />
       )}
     </div>
   ));
@@ -169,8 +169,8 @@ ui_component_agent = Agent(
 #### 1. Core Components
 
 - **`ChatInterface.tsx`**: Main chat container
-- **`UITestMessageList.tsx`**: Renders chat messages and forms
-- **`UITestFormComponent.tsx`**: Dynamic form renderer
+- **`DynamicUIMessageList.tsx`**: Renders chat messages and forms
+- **`DynamicUIFormComponent.tsx`**: Dynamic form renderer
 - **`FieldMapper.tsx`**: Field type router
 
 #### 2. Field Components (`fields/`)
@@ -186,8 +186,7 @@ ui_component_agent = Agent(
 
 #### 3. State Management
 
-- **`useUITestChat.ts`**: Chat state and API communication
-- **`uiTestApi.ts`**: API service layer
+- **`useDynamicUIChat.ts`**: Chat state and API communication
 
 ## 📊 Data Flow Diagram
 
@@ -196,9 +195,9 @@ User Input
     ↓
 Chat Interface
     ↓
-useUITestChat Hook
+useDynamicUIChat Hook
     ↓
-uiTestApi Service
+API Service (integrated)
     ↓
 FastAPI Backend
     ↓
@@ -358,7 +357,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000
 
 ```typescript
 interface ChatState {
-  messages: UITestMessage[];
+  messages: DynamicUIMessage[];
   isLoading: boolean;
   error: string | null;
 }
