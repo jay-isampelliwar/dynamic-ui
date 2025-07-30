@@ -2,15 +2,15 @@
 
 import { useState, KeyboardEvent } from "react";
 
-interface UITestChatInputProps {
+interface DynamicUIChatInputProps {
   onSendMessage: (message: string) => void;
   isLoading: boolean;
 }
 
-export default function UITestChatInput({
+export default function DynamicUIChatInput({
   onSendMessage,
   isLoading,
-}: UITestChatInputProps) {
+}: DynamicUIChatInputProps) {
   const [message, setMessage] = useState("");
 
   const handleSubmit = () => {

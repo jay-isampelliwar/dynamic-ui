@@ -4,13 +4,13 @@ import { useState } from "react";
 import { FormComponent } from "../lib";
 import FieldMapper from "./fields/FieldMapper";
 
-interface UITestFormComponentProps {
+interface DynamicUIFormComponentProps {
   component: FormComponent;
 }
 
-export default function UITestFormComponent({
+export default function DynamicUIFormComponent({
   component,
-}: UITestFormComponentProps) {
+}: DynamicUIFormComponentProps) {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
 

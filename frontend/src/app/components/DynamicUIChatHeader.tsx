@@ -1,12 +1,12 @@
 "use client";
 
-interface UITestChatHeaderProps {
+interface DynamicUIChatHeaderProps {
   onClearMessages: () => void;
 }
 
-export default function UITestChatHeader({
+export default function DynamicUIChatHeader({
   onClearMessages,
-}: UITestChatHeaderProps) {
+}: DynamicUIChatHeaderProps) {
   return (
     <div className="bg-white border-b border-gray-200 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ export default function UITestChatHeader({
           </div>
           <div>
             <h1 className="text-lg font-semibold text-gray-900">
-              UI Component Generator
+              Dynamic UI Generator
             </h1>
             <p className="text-sm text-gray-500">
               Ask me to create any form fields you need

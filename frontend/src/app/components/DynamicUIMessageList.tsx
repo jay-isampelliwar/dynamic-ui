@@ -1,17 +1,17 @@
 "use client";
 
-import { UITestMessage } from "../lib";
-import UITestFormComponent from "./UITestFormComponent";
+import { DynamicUIMessage } from "../lib";
+import DynamicUIFormComponent from "./DynamicUIFormComponent";
 
-interface UITestMessageListProps {
-  messages: UITestMessage[];
+interface DynamicUIMessageListProps {
+  messages: DynamicUIMessage[];
   isLoading: boolean;
 }
 
-export default function UITestMessageList({
+export default function DynamicUIMessageList({
   messages,
   isLoading,
-}: UITestMessageListProps) {
+}: DynamicUIMessageListProps) {
   if (messages.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center text-gray-500">
@@ -30,7 +30,7 @@ export default function UITestMessageList({
             />
           </svg>
         </div>
-        <h3 className="text-lg font-medium mb-2">UI Component Generator</h3>
+        <h3 className="text-lg font-medium mb-2">Dynamic UI Generator</h3>
         <p className="text-sm max-w-md">
           Ask me to create any form fields you need. For example:
         </p>
@@ -68,7 +68,7 @@ export default function UITestMessageList({
             <div className="whitespace-pre-wrap">{message.content}</div>
             {message.component && typeof message.component === "object" && (
               <div className="mt-4">
-                <UITestFormComponent component={message.component} />
+                <DynamicUIFormComponent component={message.component} />
               </div>
             )}
             <div

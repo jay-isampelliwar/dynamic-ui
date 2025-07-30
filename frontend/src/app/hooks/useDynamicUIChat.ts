@@ -1,16 +1,16 @@
 import { useState, useCallback } from 'react'
-import { UITestMessage } from '../lib'
-import { uiTestApiService } from '@/app/lib/uiTestApi'
+import { DynamicUIMessage } from '../lib'
+import { dynamicUIApiService } from '@/app/lib/dynamicUIApi'
 
-export function useUITestChat() {
-  const [messages, setMessages] = useState<UITestMessage[]>([])
+export function useDynamicUIChat() {
+  const [messages, setMessages] = useState<DynamicUIMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const sendMessage = useCallback(async (content: string) => {
     if (!content.trim() || isLoading) return
 
-    const userMessage: UITestMessage = {
+    const userMessage: DynamicUIMessage = {
       id: Date.now().toString(),
       content: content.trim(),
       role: 'user',
@@ -22,7 +22,7 @@ export function useUITestChat() {
     setError(null)
 
     try {
-      const response = await uiTestApiService.sendUITestMessage(content.trim())
+      const response = await dynamicUIApiService.sendDynamicUIMessage(content.trim())
       
       // Parse the response to extract component if present
       let messageContent = response.content;
@@ -42,7 +42,7 @@ export function useUITestChat() {
         console.log('No component received in response');
       }
       
-      const assistantMessage: UITestMessage = {
+      const assistantMessage: DynamicUIMessage = {
         id: (Date.now() + 1).toString(),
         content: messageContent,
         role: 'assistant',
@@ -56,7 +56,7 @@ export function useUITestChat() {
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
       setError(errorMessage)
       
-      const errorResponse: UITestMessage = {
+      const errorResponse: DynamicUIMessage = {
         id: (Date.now() + 1).toString(),
         content: 'Sorry, I encountered an error. Please try again. ' + errorMessage,
         role: 'assistant',
