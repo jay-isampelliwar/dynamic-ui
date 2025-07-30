@@ -47,12 +47,12 @@ const sendMessage = useCallback(async (content: string) => {
 
 ### 3. Backend AI Processing
 
-- **Endpoint**: `POST /ui-test`
+- **Endpoint**: `POST /generate-ui-component`
 - **Agent**: `ui_component_agent` (OpenAI GPT-4)
 - **Processing**: Natural language → Structured form schema
 
 ````python
-@app.post("/ui-test")
+@app.post("/generate-ui-component")
 async def generate_ui_component(request: dict):
     user_message = request.get("message", "")
     response = await ui_component_agent.arun(user_message)
@@ -409,7 +409,7 @@ console.log("Valid component received:", component);
 
 ## 📝 API Documentation
 
-### POST /ui-test
+### POST /generate-ui-component
 
 Generate dynamic UI components from natural language.
 

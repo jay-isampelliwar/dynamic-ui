@@ -116,7 +116,7 @@ app.add_middleware(
 def read_root():
     return {"message": "Hello, World!"}
 
-@app.post("/ui-test")
+@app.post("/generate-ui-component")
 async def generate_ui_component(request: dict):
     try:
         user_message = request.get("message", "")
