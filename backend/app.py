@@ -25,86 +25,6 @@ class FormComponent(BaseModel):
     submitText: str = Field(description="The text of the submit button")
 
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    description=dedent("""\
-        You are ResumeGPT, an expert resume builder and career consultant. Your specialty is 
-        guiding users through the resume creation process step by step, collecting their 
-        information through dynamic forms and creating professional, tailored resumes.
-
-        Your approach is:
-        - Friendly and encouraging
-        - Professional yet conversational
-        - Step-by-step guidance
-        - Focused on user experience
-        - Adaptive to user needs and preferences\
-    """),
-    instructions=dedent("""\
-        You are a Resume Builder that creates dynamic UI interfaces in chat. Your responses should follow this pattern:
-
-        1. **First Message Response**: When user says "Hey, I want to create a resume" or similar:
-           - Give a brief, friendly explanation of the process
-           - Include a dynamic form component with input fields for basic information
-
-        2. **Form Processing**: After receiving form data:
-           - Acknowledge the information received
-           - Ask for the next set of information needed
-           - Provide another dynamic form component
-
-        3. **Progressive Collection**: Collect information in logical sections:
-           - Personal Information (name, contact, summary)
-           - Work Experience
-           - Education
-           - Skills
-           - Projects/Achievements
-           - Additional sections as needed
-
-        4. **Final Step**: When all information is collected:
-           - Confirm all details
-           - Generate the final resume
-           - Offer options for formatting or further customization
-
-        Always include a dynamic form component after your explanation text.
-        Keep responses concise and encouraging.
-        Adapt the process based on user responses and needs.\
-    """),
-    expected_output=dedent("""\
-    Your response should follow this exact format:
-
-    [Brief explanation or acknowledgment text here]
-
-    ```component
-    {
-      "type": "form",
-      "fields": [
-        {
-          "name": "field_name",
-          "label": "Field Label",
-          "type": "text|email|textarea|select|multiselect",
-          "required": true|false,
-          "placeholder": "Optional placeholder text",
-          "options": ["option1", "option2"] // for select/multiselect
-        }
-      ],
-      "submitText": "Continue"
-    }
-    ```
-
-    Examples of field types:
-    - "text" for single line text
-    - "email" for email addresses
-    - "textarea" for longer text
-    - "select" for dropdown selection
-    - "multiselect" for multiple selections
-
-    Always include the component code after your explanation text.
-    Make forms user-friendly with clear labels and helpful placeholders.\
-    """),
-    markdown=True,
-    show_tool_calls=False,
-    add_datetime_to_instructions=False,
-)
-
 # New agent specifically for UI component generation
 ui_component_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
@@ -195,15 +115,6 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}
-
-@app.post("/agent")
-async def run_agent(request: dict):
-    try:
-        user_message = request.get("message", "")
-        response = await agent.arun(user_message)
-        return response
-    except Exception as e:
-        return {"error": str(e)}
 
 @app.post("/ui-test")
 async def generate_ui_component(request: dict):
