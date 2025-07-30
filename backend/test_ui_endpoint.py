@@ -2,7 +2,7 @@ import requests
 import json
 
 def test_ui_endpoint():
-    url = "http://localhost:8000/ui-test"
+    url = "http://localhost:8000/generate-ui-component"
     payload = {
         "message": "I need name, email, and phone fields"
     }
